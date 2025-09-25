@@ -29,6 +29,7 @@
                                     <th>Email</th>
                                     <th>RT</th>
                                     <th>RW</th>
+                                    <th>Role_ID</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -50,6 +51,7 @@
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->rt ?? '-' }}</td>
                                     <td>{{ $item->rw ?? '-' }}</td>
+                                    <td>{{ $item->role_id }}</td>
                                     <td>
                                         @if ($item->status == 'approved')
                                             <span class="badge bg-success text-white">Aktif</span>

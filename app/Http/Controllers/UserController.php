@@ -42,13 +42,17 @@ class userController extends Controller
         return back()->with('success',$for == 'approved' ? 'Akun berhasil disetujui' : 'Akun berhasil ditolak');
     }
 
-    public function account_list_view ()
-    {
-        $users = User::where('role_id',3)->where('status','!=', 'submitted')->get();
-        return view('pages.account_list.index',[
-            'users' => $users,
-        ]);
-    }
+    public function account_list_view()
+{
+    // Mengambil user dengan role_id 2 ATAU 3
+    $users = User::whereIn('role_id', [2, 3])
+                 ->where('status', '!=', 'submitted')
+                 ->get();
+
+    return view('pages.account_list.index', [
+        'users' => $users,
+    ]);
+}
     public function profile_view ()
     {
         return view('pages.profile.index');

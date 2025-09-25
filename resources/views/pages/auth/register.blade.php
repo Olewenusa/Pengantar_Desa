@@ -31,6 +31,17 @@
 
 </head>
 
+@if (session('success'))
+        <script>
+        Swal.fire({
+        title: "berhasil",
+        text: "{{ session()->get('success') }}",
+        icon: "success"
+        });
+    </script>
+    @else
+@endif
+
 <body class="bg-gradient-primary">
 
     <div class="container">
@@ -64,7 +75,7 @@
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control form-control-user" id="rw_select" name="rw" required>
+                                            <select class="form-control" id="rw_select" name="rw" required>
                                                 <option value="">-- Pilih RW --</option>
                                                 @foreach(array_keys($wilayahData) as $rw)
                                                     <option value="{{ $rw }}">RW {{ str_pad($rw, 2, '0', STR_PAD_LEFT) }}</option>
@@ -72,7 +83,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control form-control-user" id="rt_select" name="rt" disabled required>
+                                            <select class="form-control" id="rt_select" name="rt" disabled required>
                                                 <option value="">-- Pilih RW Terlebih Dahulu --</option>
                                             </select>
                                         </div>

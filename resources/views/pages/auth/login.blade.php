@@ -106,7 +106,15 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('template/js/sb-admin-2.min.js') }}"></script>
-
+@if (session('success'))
+    <script>
+        Swal.fire({
+            title: "Berhasil!",
+            text: "{{ session('success') }}",
+            icon: "success"
+        });
+    </script>
+@endif
 </body>
 
 </html>
