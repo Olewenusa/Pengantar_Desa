@@ -62,7 +62,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form class="user" action="/login" method="POST">
+                                    <form class="user" action="/login" method="POST" onsubmit="const submitBtn = document.getElementById('submitBtn'); submitBtn.disabled = true; submitBtn.textContent = 'Loading...'">
                                         @csrf
                                         @method('POST')
                                         <div class="form-group">
@@ -75,15 +75,13 @@
                                                 id="inputPassword" placeholder="Password">
                                         </div>
                                        
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button id="submitBtn" type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
-                                        <hr>
-                                        
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="/register">Create an Account!</a>
+                                        <a class="small" href="/register">Buat Akun Baru!</a>
                                     </div>
                                 </div>
                             </div>

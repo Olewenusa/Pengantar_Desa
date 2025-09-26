@@ -11,7 +11,7 @@ class userController extends Controller
 {
     public function account_requests_view() 
     {
-        $users =  User::where('status', 'submitted')->get();
+        $users =  User::where('status', 'submitted')->paginate(5);
 
         return view('pages.account_requests.index',
     [
@@ -47,7 +47,7 @@ class userController extends Controller
     // Mengambil user dengan role_id 2 ATAU 3
     $users = User::whereIn('role_id', [2, 3])
                  ->where('status', '!=', 'submitted')
-                 ->get();
+                 ->paginate(5);
 
     return view('pages.account_list.index', [
         'users' => $users,

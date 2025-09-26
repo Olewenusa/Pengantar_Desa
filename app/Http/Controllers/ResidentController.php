@@ -55,11 +55,12 @@ function store(Request $request)
 
 class ResidentController extends Controller
 {
-    public function index()
+     public function index()
     {
-        $residents = Resident::all();
+        // FIX: Panggil paginate() langsung, bukan setelah all()
+        $residents = Resident::latest()->paginate(perPage: 5); // latest() untuk mengurutkan dari terbaru
 
-        return view("pages.resident.index",[
+        return view("pages.resident.index", [
             'residents' => $residents,
         ]);
     }
