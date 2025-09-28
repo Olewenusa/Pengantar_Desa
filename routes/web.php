@@ -5,6 +5,7 @@ use App\Http\Controllers\ResidentController;
     use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PengantarController;
 
 
 
@@ -36,3 +37,22 @@ Route::get('/profile', [UserController::class, 'profile_view'])->Middleware('rol
 Route::post('/profile/{id}', [UserController::class, 'update_profile'])->Middleware('role:Admin,User,Kepala RT,Kepala RW,Kepala Desa,Staff Desa');
 Route::get('/change_password', [UserController::class, 'change_password_view'])->Middleware('role:Admin,User,Kepala RT,Kepala RW,Kepala Desa,Staff Desa');
 Route::post('/change_password/{id}', [UserController::class, 'change_password'])->Middleware('role:Admin,User,Kepala RT,Kepala RW,Kepala Desa,Staff Desa');
+
+Route::prefix('pengantar')->name('pengantar.')->group(function () {
+    // Routes umum
+    Route::get('/', [PengantarController::class, 'index'])->name('index');
+    Route::get('/create', [PengantarController::class, 'create'])->name('create');
+    Route::post('/', [PengantarController::class, 'store'])->name('store');
+    Route::get('/{pengantar}', [PengantarController::class, 'show'])->name('show');
+    Route::get('/{pengantar}/edit', [PengantarController::class, 'edit'])->name('edit');
+    Route::put('/{pengantar}', [PengantarController::class, 'update'])->name('update');
+    Route::delete('/{pengantar}', [PengantarController::class, 'destroy'])->name('destroy');
+    
+    // Routes untuk approval
+    Route::put('/{pengantar}/process-rt', [PengantarController::class, 'processRT'])->name('process.rt');
+    Route::put('/{pengantar}/process-rw', [PengantarController::class, 'processRW'])->name('process.rw');
+    
+    // Dashboard untuk RT dan RW
+    Route::get('/dashboard/rt', [PengantarController::class, 'dashboardRT'])->name('dashboard.rt');
+    Route::get('/dashboard/rw', [PengantarController::class, 'dashboardRW'])->name('dashboard.rw');
+});

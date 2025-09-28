@@ -18,6 +18,10 @@
                 'title' => 'Permintaan Akun',
                 'path' => 'account-requests',
                 'icon' => 'fas fa-fw fa-user',
+            ],(object)[
+                'title' => 'Surat Pengantar',
+                'path' => 'pengantar',
+                'icon' => 'fas fa-envelope-open-text',
             ]
         ],
         2 => [
@@ -25,21 +29,37 @@
                 'title' => 'Dashboard',
                 'path' => '/dashboard',
                 'icon' => 'fas fa-fw fa-tachometer-alt',
-            ],
+            ],(object)[
+                'title' => 'Surat Pengantar',
+                'path' => 'pengantar',
+                'icon' => 'fas fa-envelope-open-text',
+            ]
 ],
 3 => [
             (object)[
                 'title' => 'Dashboard',
                 'path' => '/dashboard',
                 'icon' => 'fas fa-fw fa-tachometer-alt',
-            ],
+            ],(object)[
+                'title' => 'Surat Pengantar',
+                'path' => '/pengantar',
+                'icon' => 'fas fa-envelope-open-text',
+            ],(object)[
+                'title' => 'Dashboard Surat RT',
+                'path' => '/pengantar/dashboard/rt',
+                'icon' => 'fas fa-envelope-open-text',
+            ]
 ],
         4 => [
             (object)[
                 'title' => 'Dashboard',
                 'path' => '/dashboard',
                 'icon' => 'fas fa-fw fa-tachometer-alt',
-            ],
+            ],(object)[
+                'title' => 'Surat Pengantar',
+                'path' => 'pengantar',
+                'icon' => 'fas fa-envelope-open-text',
+            ]
 ],
     ];
 @endphp
