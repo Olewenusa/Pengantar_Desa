@@ -140,6 +140,7 @@
                              <small class="text-muted d-block mt-1"><i>"{{ $pengantar->notes_rw }}"</i></small>
                         @endif
                     </div>
+<<<<<<< HEAD
                     
                 </div>
             </div>
@@ -166,6 +167,14 @@
     </div>
 </div>
 @endif
+=======
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+>>>>>>> 233322a9c996a99db394807f7489572fb8c4a25a
 
 <!-- Form Aksi untuk RT -->
 @if(auth()->user()->role === 'rt' && $pengantar->status_rt === 'pending')
