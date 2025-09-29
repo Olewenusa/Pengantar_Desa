@@ -140,12 +140,32 @@
                              <small class="text-muted d-block mt-1"><i>"{{ $pengantar->notes_rw }}"</i></small>
                         @endif
                     </div>
+                    
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
-
+@if($pengantar->status_rt === 'accepted' && $pengantar->status_rw === 'accepted')
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-success shadow" role="alert">
+            <h4 class="alert-heading">
+                <i class="fas fa-check-circle"></i> Selamat! Pengajuan Diterima
+            </h4>
+            <p>
+                Surat pengantar Anda telah disetujui oleh Ketua RT dan Ketua RW. 
+                Proses selanjutnya adalah di Kantor Desa.
+            </p>
+            <hr>
+            <p class="mb-0">
+                <strong>Silakan datang ke Kantor Desa</strong> dengan membawa dokumen yang sudah dicetak.
+            </p>
+        </div>
+    </div>
+</div>
+@endif
 
 <!-- Form Aksi untuk RT -->
 @if(auth()->user()->role === 'rt' && $pengantar->status_rt === 'pending')

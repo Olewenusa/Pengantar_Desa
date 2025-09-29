@@ -12,15 +12,23 @@
                 'icon' => 'fas fa-fw fa-table',
             ],(object)[
                 'title' => 'Daftar Akun',
-                'path' => 'account_list',
+                'path' => '/account_list',
                 'icon' => 'fas fa-fw fa-user',
             ],(object)[
                 'title' => 'Permintaan Akun',
-                'path' => 'account-requests',
+                'path' => '/account-requests',
                 'icon' => 'fas fa-fw fa-user',
             ],(object)[
                 'title' => 'Surat Pengantar',
-                'path' => 'pengantar',
+                'path' => '/pengantar',
+                'icon' => 'fas fa-envelope-open-text',
+            ],(object)[
+                'title' => 'Dashboard Surat RT',
+                'path' => '/pengantar/dashboard/rt',
+                'icon' => 'fas fa-envelope-open-text',
+            ],(object)[
+                'title' => 'Dashboard Surat RW',
+                'path' => '/pengantar/dashboard/rw',
                 'icon' => 'fas fa-envelope-open-text',
             ]
         ],
@@ -31,7 +39,7 @@
                 'icon' => 'fas fa-fw fa-tachometer-alt',
             ],(object)[
                 'title' => 'Surat Pengantar',
-                'path' => 'pengantar',
+                'path' => '/pengantar',
                 'icon' => 'fas fa-envelope-open-text',
             ]
 ],
@@ -57,12 +65,34 @@
                 'icon' => 'fas fa-fw fa-tachometer-alt',
             ],(object)[
                 'title' => 'Surat Pengantar',
-                'path' => 'pengantar',
+                'path' => '/pengantar',
+                'icon' => 'fas fa-envelope-open-text',
+            ],(object)[
+                'title' => 'Dashboard Surat RW',
+                'path' => '/pengantar/dashboard/rw',
                 'icon' => 'fas fa-envelope-open-text',
             ]
 ],
     ];
 @endphp
+
+@if(auth()->user()->role == 'Kepala RT' || auth()->user()->role == 'Admin')
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('dashboard.rt') }}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard RT</span>
+    </a>
+</li>
+@endif
+
+@if(auth()->user()->role == 'Kepala RW' || auth()->user()->role == 'Admin')
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('dashboard.rw') }}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard RW</span>
+    </a>
+</li>
+@endif
 
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 

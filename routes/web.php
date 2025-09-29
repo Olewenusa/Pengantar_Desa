@@ -56,3 +56,23 @@ Route::prefix('pengantar')->name('pengantar.')->group(function () {
     Route::get('/dashboard/rt', [PengantarController::class, 'dashboardRT'])->name('dashboard.rt');
     Route::get('/dashboard/rw', [PengantarController::class, 'dashboardRW'])->name('dashboard.rw');
 });
+
+Route::prefix('pengantar')->name('pengantar.')->group(function () {
+    Route::get('/', [PengantarController::class, 'index'])->name('index');
+    Route::get('/create', [PengantarController::class, 'create'])->name('create');
+    Route::post('/', [PengantarController::class, 'store'])->name('store');
+    Route::get('/{pengantar}', [PengantarController::class, 'show'])->name('show');
+    Route::get('/{pengantar}/edit', [PengantarController::class, 'edit'])->name('edit');
+    Route::put('/{pengantar}', [PengantarController::class, 'update'])->name('update');
+    Route::delete('/{pengantar}', [PengantarController::class, 'destroy'])->name('destroy');
+    
+    // PENTING: Ubah PUT ke POST untuk kompatibilitas form
+    Route::post('/{pengantar}/update-rt', [PengantarController::class, 'processRT'])->name('update.rt');
+    Route::post('/{pengantar}/update-rw', [PengantarController::class, 'processRW'])->name('update.rw');
+    
+    Route::get('/{id}/detail', [PengantarController::class, 'getDetail'])->name('detail');
+});
+
+// Dashboard RT & RW (di luar prefix pengantar)
+Route::get('/dashboard-rt', [PengantarController::class, 'dashboardRT'])->name('dashboard.rt');
+Route::get('/dashboard-rw', [PengantarController::class, 'dashboardRW'])->name('dashboard.rw');

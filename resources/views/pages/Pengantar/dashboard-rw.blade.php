@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h2>Dashboard RT - Surat Pengantar</h2>
-    <p class="text-muted">RT {{ auth()->user()->rt }} / RW {{ auth()->user()->rw }}</p>
+    <h2>Dashboard RW - Surat Pengantar</h2>
+    <p class="text-muted">RW {{ auth()->user()->rw }}</p>
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show">
@@ -24,47 +24,33 @@
         <div class="col-md-4">
             <div class="card bg-warning text-white">
                 <div class="card-body text-center">
-                    <h1>{{ $pengantars->where('status_rt', 'pending')->count() }}</h1>
-                    <p class="mb-0">Menunggu Persetujuan</p>
+                    <h1>{{ $pengantars->where('status_rw', 'pending')->count() }}</h1>
+                    <p class="mb-0">Menunggu Persetujuan RW</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card bg-success text-white">
                 <div class="card-body text-center">
-                    <h1>{{ $pengantars->where('status_rt', 'accepted')->count() }}</h1>
-                    <p class="mb-0">Disetujui</p>
+                    <h1>{{ $pengantars->where('status_rw', 'accepted')->count() }}</h1>
+                    <p class="mb-0">Disetujui RW</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card bg-danger text-white">
                 <div class="card-body text-center">
-                    <h1>{{ $pengantars->where('status_rt', 'rejected')->count() }}</h1>
-                    <p class="mb-0">Ditolak</p>
+                    <h1>{{ $pengantars->where('status_rw', 'rejected')->count() }}</h1>
+                    <p class="mb-0">Ditolak RW</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Tabel Pengajuan -->
+    <!-- Tabel Pengajuan yang Sudah Disetujui RT -->
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Daftar Pengajuan Surat Pengantar</h5>
-            <div>
-                <button class="btn btn-sm btn-outline-warning" onclick="filterStatus('pending')">
-                    <i class="bi bi-clock"></i> Menunggu
-                </button>
-                <button class="btn btn-sm btn-outline-success" onclick="filterStatus('accepted')">
-                    <i class="bi bi-check-circle"></i> Disetujui
-                </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="filterStatus('rejected')">
-                    <i class="bi bi-x-circle"></i> Ditolak
-                </button>
-                <button class="btn btn-sm btn-outline-secondary" onclick="filterStatus('all')">
-                    <i class="bi bi-list"></i> Semua
-                </button>
-            </div>
+        <div class="card-header">
+            <h5 class="mb-0">Pengajuan yang Sudah Disetujui RT (Menunggu RW)</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -74,36 +60,26 @@
                             <th>No</th>
                             <th>Nama Pemohon</th>
                             <th>NIK</th>
+                            <th>RT</th>
                             <th>Keperluan</th>
-                            <th>Tanggal Pengajuan</th>
-                            <th>Status RT</th>
                             <th>Status RW</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody">
+                    <tbody>
                         @forelse($pengantars as $key => $item)
-                        <tr data-status="{{ $item->status_rt }}">
+                        <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>
                                 <strong>{{ $item->name }}</strong><br>
                                 <small class="text-muted">{{ $item->resident->name ?? '-' }}</small>
                             </td>
                             <td>{{ $item->NIK }}</td>
+                            <td>RT {{ $item->resident->rt ?? '-' }}</td>
                             <td>{{ Str::limit($item->purpose, 50) }}</td>
-                            <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
-                            <td>
-                                @if($item->status_rt == 'pending')
-                                    <span class="badge bg-warning">Menunggu</span>
-                                @elseif($item->status_rt == 'accepted')
-                                    <span class="badge bg-success">Disetujui</span>
-                                @else
-                                    <span class="badge bg-danger">Ditolak</span>
-                                @endif
-                            </td>
                             <td>
                                 @if($item->status_rw == 'pending')
-                                    <span class="badge bg-secondary">Menunggu</span>
+                                    <span class="badge bg-warning">Menunggu</span>
                                 @elseif($item->status_rw == 'accepted')
                                     <span class="badge bg-success">Disetujui</span>
                                 @else
@@ -116,7 +92,7 @@
                                         <i class="bi bi-eye"></i>
                                     </button>
                                     
-                                    @if($item->status_rt == 'pending')
+                                    @if($item->status_rw == 'pending')
                                         <button type="button" class="btn btn-sm btn-success" onclick="openApprovalModal({{ $item->id }}, '{{ $item->name }}', 'accepted')" title="Setujui">
                                             <i class="bi bi-check-lg"></i>
                                         </button>
@@ -129,9 +105,9 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8" class="text-center py-4">
+                            <td colspan="7" class="text-center py-4">
                                 <i class="bi bi-inbox" style="font-size: 3rem; color: #ccc;"></i>
-                                <p class="text-muted mt-2">Belum ada pengajuan surat pengantar</p>
+                                <p class="text-muted mt-2">Belum ada pengajuan yang perlu diproses RW</p>
                             </td>
                         </tr>
                         @endforelse
@@ -156,7 +132,7 @@
                     <p id="modalMessage"></p>
                     <div class="mb-3">
                         <label for="notes" class="form-label">Catatan (Opsional)</label>
-                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Tambahkan catatan jika diperlukan..."></textarea>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                     </div>
                     <input type="hidden" name="status" id="statusInput">
                 </div>
@@ -189,19 +165,6 @@
 </div>
 
 <script>
-// Filter status
-function filterStatus(status) {
-    const rows = document.querySelectorAll('#tableBody tr[data-status]');
-    rows.forEach(row => {
-        if (status === 'all' || row.dataset.status === status) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-}
-
-// Open approval modal
 function openApprovalModal(id, name, action) {
     const modal = new bootstrap.Modal(document.getElementById('approvalModal'));
     const form = document.getElementById('approvalForm');
@@ -210,37 +173,30 @@ function openApprovalModal(id, name, action) {
     const statusInput = document.getElementById('statusInput');
     const confirmBtn = document.getElementById('confirmBtn');
     
-    // Set form action
-    form.action = `/pengantar/${id}/update-rt`;
-    
-    // Set status
+    // Set form action untuk RW
+    form.action = `/pengantar/${id}/update-rw`;
     statusInput.value = action;
     
-    // Set modal content
     if (action === 'accepted') {
-        title.textContent = 'Setujui Pengajuan';
+        title.textContent = 'Setujui Pengajuan RW';
         message.innerHTML = `Apakah Anda yakin ingin <strong class="text-success">MENYETUJUI</strong> pengajuan dari <strong>${name}</strong>?`;
         confirmBtn.className = 'btn btn-success';
         confirmBtn.textContent = 'Setujui';
     } else {
-        title.textContent = 'Tolak Pengajuan';
+        title.textContent = 'Tolak Pengajuan RW';
         message.innerHTML = `Apakah Anda yakin ingin <strong class="text-danger">MENOLAK</strong> pengajuan dari <strong>${name}</strong>?`;
         confirmBtn.className = 'btn btn-danger';
         confirmBtn.textContent = 'Tolak';
     }
     
-    // Clear notes
     document.getElementById('notes').value = '';
-    
     modal.show();
 }
 
-// Show detail
 function showDetail(id) {
     const modal = new bootstrap.Modal(document.getElementById('detailModal'));
     const content = document.getElementById('detailContent');
     
-    // Show loading
     content.innerHTML = `
         <div class="text-center py-4">
             <div class="spinner-border" role="status">
@@ -251,7 +207,6 @@ function showDetail(id) {
     
     modal.show();
     
-    // Fetch detail via AJAX
     fetch(`/pengantar/${id}/detail`)
         .then(response => response.json())
         .then(data => {
@@ -290,15 +245,10 @@ function showDetail(id) {
             `;
         })
         .catch(error => {
-            content.innerHTML = `
-                <div class="alert alert-danger">
-                    Gagal memuat detail. Silakan coba lagi.
-                </div>
-            `;
+            content.innerHTML = `<div class="alert alert-danger">Gagal memuat detail.</div>`;
         });
 }
 </script>
 
-<!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 @endsection
