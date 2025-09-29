@@ -63,9 +63,13 @@
                         <tr>
                             <td class="text-center">{{ $pengantars->firstItem() + $key }}</td>
                             <td>
-                                <div>{{ $pengantar->name }}</div>
-                                <small class="text-muted">{{ $pengantar->resident->name ?? 'N/A' }}</small>
-                            </td>
+    {{-- Menampilkan nama penduduk (dari tabel users) --}}
+    <strong>{{ $pengantar->resident->name ?? 'Data Penduduk Tidak Ditemukan' }}</strong>
+    
+    {{-- Menampilkan nama user yang mengajukan surat (dari tabel users juga) --}}
+    <br>
+    <small class="text-muted">Diajukan oleh: {{ $pengantar->user->name ?? 'N/A' }}</small>
+</td>
                             <td>{{ $pengantar->NIK }}</td>
                             <td>{{ Str::limit($pengantar->purpose, 35) }}</td>
                             <td class="text-center">

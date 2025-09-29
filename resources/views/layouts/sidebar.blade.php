@@ -20,7 +20,6 @@
                 'icon' => 'fas fa-fw fa-user',
             ],(object)[
                 'title' => 'Surat Pengantar',
-<<<<<<< HEAD
                 'path' => '/pengantar',
                 'icon' => 'fas fa-envelope-open-text',
             ],(object)[
@@ -30,9 +29,6 @@
             ],(object)[
                 'title' => 'Dashboard Surat RW',
                 'path' => '/pengantar/dashboard/rw',
-=======
-                'path' => 'pengantar',
->>>>>>> 233322a9c996a99db394807f7489572fb8c4a25a
                 'icon' => 'fas fa-envelope-open-text',
             ]
         ],
@@ -43,11 +39,7 @@
                 'icon' => 'fas fa-fw fa-tachometer-alt',
             ],(object)[
                 'title' => 'Surat Pengantar',
-<<<<<<< HEAD
                 'path' => '/pengantar',
-=======
-                'path' => 'pengantar',
->>>>>>> 233322a9c996a99db394807f7489572fb8c4a25a
                 'icon' => 'fas fa-envelope-open-text',
             ]
 ],
@@ -73,15 +65,11 @@
                 'icon' => 'fas fa-fw fa-tachometer-alt',
             ],(object)[
                 'title' => 'Surat Pengantar',
-<<<<<<< HEAD
                 'path' => '/pengantar',
                 'icon' => 'fas fa-envelope-open-text',
             ],(object)[
                 'title' => 'Dashboard Surat RW',
                 'path' => '/pengantar/dashboard/rw',
-=======
-                'path' => 'pengantar',
->>>>>>> 233322a9c996a99db394807f7489572fb8c4a25a
                 'icon' => 'fas fa-envelope-open-text',
             ]
 ],

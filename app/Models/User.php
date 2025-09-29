@@ -53,4 +53,9 @@ class User extends Authenticatable
 {
     return $this->belongsTo(User::class);
 }
+
+public function pengantars()
+{
+    return $this->hasMany(Pengantar::class, 'resident_id');
+}
 }

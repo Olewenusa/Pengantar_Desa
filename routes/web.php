@@ -55,7 +55,6 @@ Route::prefix('pengantar')->name('pengantar.')->group(function () {
     // Dashboard untuk RT dan RW
     Route::get('/dashboard/rt', [PengantarController::class, 'dashboardRT'])->name('dashboard.rt');
     Route::get('/dashboard/rw', [PengantarController::class, 'dashboardRW'])->name('dashboard.rw');
-<<<<<<< HEAD
 });
 
 Route::prefix('pengantar')->name('pengantar.')->group(function () {
@@ -67,16 +66,11 @@ Route::prefix('pengantar')->name('pengantar.')->group(function () {
     Route::put('/{pengantar}', [PengantarController::class, 'update'])->name('update');
     Route::delete('/{pengantar}', [PengantarController::class, 'destroy'])->name('destroy');
     
-    // PENTING: Ubah PUT ke POST untuk kompatibilitas form
     Route::post('/{pengantar}/update-rt', [PengantarController::class, 'processRT'])->name('update.rt');
     Route::post('/{pengantar}/update-rw', [PengantarController::class, 'processRW'])->name('update.rw');
     
     Route::get('/{id}/detail', [PengantarController::class, 'getDetail'])->name('detail');
 });
 
-// Dashboard RT & RW (di luar prefix pengantar)
 Route::get('/dashboard-rt', [PengantarController::class, 'dashboardRT'])->name('dashboard.rt');
 Route::get('/dashboard-rw', [PengantarController::class, 'dashboardRW'])->name('dashboard.rw');
-=======
-});
->>>>>>> 233322a9c996a99db394807f7489572fb8c4a25a

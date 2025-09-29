@@ -4,7 +4,6 @@
 
 @section('content')
 
-<!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Ajukan Surat Pengantar</h1>
     <a href="{{ route('pengantar.index') }}" class="btn btn-secondary btn-sm">
@@ -12,7 +11,6 @@
     </a>
 </div>
 
-<!-- Display Validation Errors -->
 @if($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
@@ -31,44 +29,32 @@
         <form action="{{ route('pengantar.store') }}" method="POST">
             @csrf
 
-            <div class="form-group">
-                <label for="resident_id">Data Penduduk <span class="text-danger">*</span></label>
-                <select name="resident_id" id="resident_id" class="form-control @error('resident_id') is-invalid @enderror" required>
-                    <option value="">Pilih Data Penduduk</option>
-                    @foreach($residents as $resident)
-                        <option value="{{ $resident->id }}" {{ old('resident_id') == $resident->id ? 'selected' : '' }}>
-                            {{ $resident->name }} - {{ $resident->NIK }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('resident_id')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+            {{-- 1. INPUT TERSEMBUNYI UNTUK resident_id --}}
+            {{-- Mengirim ID user yang login secara otomatis --}}
+            <input type="hidden" name="resident_id" value="{{ auth()->user()->id }}">
 
+            {{-- 2. INPUT NAMA PEMOHON (READONLY) --}}
             <div class="form-group">
-                <label for="name">Nama Pemohon <span class="text-danger">*</span></label>
+                <label for="name">Nama Pemohon</label>
                 <input type="text" name="name" id="name" 
-                       value="{{ old('name') }}"
-                       class="form-control @error('name') is-invalid @enderror"
-                       placeholder="Masukkan nama pemohon" required>
-                @error('name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                       value="{{ auth()->user()->name }}"
+                       class="form-control"
+                       readonly>
             </div>
 
+            {{-- 3. INPUT NIK (READONLY) --}}
             <div class="form-group">
-                <label for="NIK">NIK <span class="text-danger">*</span></label>
-                <input type="text" name="NIK" id="NIK" 
-                       value="{{ old('NIK') }}"
-                       class="form-control @error('NIK') is-invalid @enderror"
-                       placeholder="Masukkan NIK (16 digit)"
-                       maxlength="16" pattern="[0-9]{16}" required>
-                <small class="form-text text-muted">NIK harus terdiri dari 16 digit angka.</small>
-                @error('NIK')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+    <label for="NIK">NIK <span class="text-danger">*</span></label>
+    <input type="text" name="NIK" id="NIK" 
+           value="{{ old('NIK') }}"
+           class="form-control @error('NIK') is-invalid @enderror"
+           placeholder="Masukkan NIK (16 digit)"
+           maxlength="16" pattern="[0-9]{16}" required>
+    <small class="form-text text-muted">NIK harus terdiri dari 16 digit angka.</small>
+    @error('NIK')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
 
             <div class="form-group">
                 <label for="purpose">Keperluan <span class="text-danger">*</span></label>
@@ -114,26 +100,5 @@
 
 @endsection
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Auto-fill nama dan NIK dari data penduduk yang dipilih
-    document.getElementById('resident_id').addEventListener('change', function() {
-        const selectedOption = this.options[this.selectedIndex];
-        if (selectedOption.value) {
-            const text = selectedOption.text.trim();
-            const parts = text.split(' - ');
-            if (parts.length >= 2) {
-                document.getElementById('name').value = parts[0];
-                document.getElementById('NIK').value = parts[1];
-            }
-        }
-    });
-
-    // Format input NIK hanya angka
-    document.getElementById('NIK').addEventListener('input', function(e) {
-        e.target.value = e.target.value.replace(/[^0-9]/g, '');
-    });
-});
-</script>
-@endpush
+{{-- 4. JAVASCRIPT DIHAPUS --}}
+{{-- Blok @push('scripts') tidak diperlukan lagi --}}
